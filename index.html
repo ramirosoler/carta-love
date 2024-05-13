@@ -29,71 +29,7 @@
       <button id="open">Abrir</button>
       <button id="close">Cerrar</button>
     </div>
-    <div id="youtube-audio"></div>
   </main>
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
-    var player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('https://www.youtube.com/iframe_api', {
-        height: '0',
-        width: '0',
-        videoId: ' 6L-IDYXvJ8o',
-        playerVars: {
-          autoplay: 0, // No autoplay
-          loop: 1,
-          playlist: ' 6L-IDYXvJ8oIDEO' // Necesario para la repetición
-        },
-        events: {
-          'onReady': onPlayerReady
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      const btnOpenElement = document.querySelector('#open');
-      const btnCloseElement = document.querySelector('#close');
-      const coverElement = document.querySelector('.cover');
-      const paperElement = document.querySelector('.paper');
-      const heartElement = document.querySelector('.heart');
-      const mainMessageElement = document.querySelector('#mainMessage');
-      const urlSearchParams = new URLSearchParams(window.location.search);
-      const messageCustom = urlSearchParams.get('message');
-
-      if (messageCustom) {
-        mainMessageElement.textContent = decodeURI(messageCustom);
-      }
-
-      btnCloseElement.disabled = true;
-
-      btnOpenElement.addEventListener('click', () => {
-        btnOpenElement.disabled = true;
-        btnCloseElement.disabled = false;
-        coverElement.classList.add('open-cover');
-        player.playVideo(); // Reproducir el audio
-
-        setTimeout(() => {
-          coverElement.style.zIndex = -1;
-          paperElement.classList.remove('close-paper');
-          paperElement.classList.add('open-paper');
-          heartElement.style.display = 'block';
-        }, 500);
-      });
-
-      btnCloseElement.addEventListener('click', () => {
-        btnOpenElement.disabled = false;
-        btnCloseElement.disabled = true;
-        paperElement.classList.remove('open-paper');
-        paperElement.classList.add('close-paper');
-        player.stopVideo(); // Detener el audio
-
-        setTimeout(() => {
-          coverElement.style.zIndex = 0;
-          coverElement.classList.remove('open-cover');
-          heartElement.style.display = 'none';
-        }, 500);
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
